@@ -1,6 +1,8 @@
 package banksys.br.ufc.dc.tp1.banco;
 
 import banksys.br.ufc.dc.tp1.conta.Conta;
+import banksys.br.ufc.dc.tp1.conta.ContaEspecial;
+import banksys.br.ufc.dc.tp1.conta.ContaPoupanca;
 
 public class Banco {
     private Conta[] contas;
@@ -60,5 +62,28 @@ public class Banco {
         }
         debitar(numeroA, valor);
         creditar(numeroB, valor);
+    }
+    
+    public void renderJuros(String numero) {
+    	Conta contaAchada = this.procurar(numero);
+    	if (contaAchada instanceof ContaPoupanca)
+    	{
+    		((ContaPoupanca) contaAchada).renderJuros(0.01);
+    	}
+    	else {
+    		System.out.println("Conta não é conta de poupança.");
+    	}
+    	
+    }
+    
+    public void renderBonus(String numero) {
+    	Conta contaAchada = this.procurar(numero);
+    	if (contaAchada instanceof ContaEspecial)
+    	{
+    		((ContaEspecial) contaAchada).renderBonus();
+    	}
+    	else {
+    		System.out.println("Conta não é conta especial.");
+    	}
     }
 }
