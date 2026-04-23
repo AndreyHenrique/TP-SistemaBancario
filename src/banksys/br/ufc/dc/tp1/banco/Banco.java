@@ -1,23 +1,24 @@
 package banksys.br.ufc.dc.tp1.banco;
 
-import banksys.br.ufc.dc.tp1.conta.Conta;
+import banksys.br.ufc.dc.tp1.conta.ContaAbstrata;
 import banksys.br.ufc.dc.tp1.conta.ContaEspecial;
 import banksys.br.ufc.dc.tp1.conta.ContaPoupanca;
 
+// banco array não pode ter ContaImposto
 public class Banco {
-    private Conta[] contas;
+    private ContaAbstrata[] contas;
     private int indice = 0;
 
     public Banco() {
-        contas = new Conta[100];
+        contas = new ContaAbstrata[100];
     }
 
-    public void cadastrar(Conta conta) {
+    public void cadastrar(ContaAbstrata conta) {
         contas[indice] = conta;
         indice ++;
     }
 
-    private Conta procurar(String numeroConta) {
+    private ContaAbstrata procurar(String numeroConta) {
         int i = 0;
         boolean achou = false;
 
@@ -38,7 +39,7 @@ public class Banco {
     }
 
     public void debitar(String numero, double valor) {
-        Conta conta = procurar(numero);
+    	ContaAbstrata conta = procurar(numero);
         if (conta != null) {
             conta.debitar(valor);
         }
@@ -46,7 +47,7 @@ public class Banco {
     }
 
     public void creditar(String numero, double valor) {
-        Conta conta = procurar(numero);
+    	ContaAbstrata conta = procurar(numero);
         if (conta != null) {
             conta.creditar(valor);
         }
@@ -54,8 +55,8 @@ public class Banco {
     }
 
     public void transferir(String numeroA, String numeroB, double valor) {
-        Conta contaA = procurar(numeroA);
-        Conta contaB = procurar(numeroB);
+    	ContaAbstrata contaA = procurar(numeroA);
+    	ContaAbstrata contaB = procurar(numeroB);
 
         if (contaA == null || contaB == null) {
             System.out.println("A conta não existe");
@@ -65,7 +66,7 @@ public class Banco {
     }
     
     public void renderJuros(String numero) {
-    	Conta contaAchada = this.procurar(numero);
+    	ContaAbstrata contaAchada = this.procurar(numero);
     	if (contaAchada instanceof ContaPoupanca)
     	{
     		((ContaPoupanca) contaAchada).renderJuros(0.01);
@@ -77,7 +78,7 @@ public class Banco {
     }
     
     public void renderBonus(String numero) {
-    	Conta contaAchada = this.procurar(numero);
+    	ContaAbstrata contaAchada = this.procurar(numero);
     	if (contaAchada instanceof ContaEspecial)
     	{
     		((ContaEspecial) contaAchada).renderBonus();
