@@ -1,5 +1,5 @@
 package banksys.br.ufc.dc.tp1.banco;
-import banksys.br.ufc.dc.tp1.conta.Conta;
+import banksys.br.ufc.dc.tp1.conta.ContaAbstrata;
 import banksys.br.ufc.dc.tp1.conta.ContaEspecial;
 import banksys.br.ufc.dc.tp1.conta.ContaPoupanca;
 
@@ -7,7 +7,7 @@ import java.util.Vector;
 
 public class BancoVector {
     //private Conta[] contas;
-    private final Vector<Conta> contas;
+    private final Vector<ContaAbstrata> contas;
 
     //private int indice = 0;
 
@@ -15,12 +15,12 @@ public class BancoVector {
         contas = new Vector<>();
     }
 
-    public void cadastrar(Conta conta) {
+    public void cadastrar(ContaAbstrata conta) {
         contas.add(conta);
         //contas[indice] = conta; indice ++;
     }
 
-    private Conta procurar(String numeroConta) {
+    private ContaAbstrata procurar(String numeroConta) {
         int i = 0;
         boolean achou = false;
 
@@ -41,7 +41,7 @@ public class BancoVector {
     }
 
     public void debitar(String numero, double valor) {
-        Conta conta = procurar(numero);
+    	ContaAbstrata conta = procurar(numero);
         if (conta != null) {
             conta.debitar(valor);
         }
@@ -49,7 +49,7 @@ public class BancoVector {
     }
 
     public void creditar(String numero, double valor) {
-        Conta conta = procurar(numero);
+    	ContaAbstrata conta = procurar(numero);
         if (conta != null) {
             conta.creditar(valor);
         }
@@ -57,8 +57,8 @@ public class BancoVector {
     }
 
     public void transferir(String numeroA, String numeroB, double valor) {
-        Conta contaA = procurar(numeroA);
-        Conta contaB = procurar(numeroB);
+    	ContaAbstrata contaA = procurar(numeroA);
+    	ContaAbstrata contaB = procurar(numeroB);
 
         if (contaA == null || contaB == null) {
             System.out.println("A conta não existe");
@@ -68,7 +68,7 @@ public class BancoVector {
     }
     
     public void renderJuros(String numero) {
-    	Conta contaAchada = this.procurar(numero);
+    	ContaAbstrata contaAchada = this.procurar(numero);
     	if (contaAchada instanceof ContaPoupanca)
     	{
     		((ContaPoupanca) contaAchada).renderJuros(0.01);
@@ -80,7 +80,7 @@ public class BancoVector {
     }
     
     public void renderBonus(String numero) {
-    	Conta contaAchada = this.procurar(numero);
+    	ContaAbstrata contaAchada = this.procurar(numero);
     	if (contaAchada instanceof ContaEspecial)
     	{
     		((ContaEspecial) contaAchada).renderBonus();
