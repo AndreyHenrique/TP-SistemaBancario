@@ -6,12 +6,14 @@ import banksys.br.ufc.dc.tp1.banco.BancoVector;
 import banksys.br.ufc.dc.tp1.conta.Conta;
 import banksys.br.ufc.dc.tp1.conta.ContaEspecial;
 import banksys.br.ufc.dc.tp1.conta.ContaPoupanca;
+import banksys.br.ufc.dc.tp1.conta.ContaImposto;
 
 public class Main {
 
     public static void main(String[] args) {
         ContaPoupanca c = new ContaPoupanca("12345");
         Conta d = new Conta("11111");
+        
 
         Banco banco_a = new Banco(); 
         
@@ -46,5 +48,15 @@ public class Main {
         
         contaPoupanca.mostrarConta();
         contaEspecial.mostrarConta();
+        
+        // teste de conta imposto 
+        System.out.println("=|=|=|=|=|=|=|TESTES CONTA IMPOSTO =|=|=|=|=|=|=|");
+        ContaImposto contaImp = new ContaImposto("66");
+        contaImp.mostrarConta();
+        
+        bancoB.cadastrar(contaImp);
+        bancoB.creditar("66", 100000);
+        bancoB.debitar("66", 2000);
+        contaImp.mostrarConta();
     }
 }
