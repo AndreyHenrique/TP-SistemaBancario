@@ -1,43 +1,34 @@
 package banksys.br.ufc.dc.tp1.banco;
+
 import banksys.br.ufc.dc.tp1.conta.ContaAbstrata;
 import banksys.br.ufc.dc.tp1.conta.ContaEspecial;
 import banksys.br.ufc.dc.tp1.conta.ContaPoupanca;
+import banksys.br.ufc.dc.tp1.repositorio.IRepositorioConta;
 
-import java.util.Vector;
+public class BancoIndependente implements IBanco {
+    private final IRepositorioConta contas;
 
-public class BancoVector {
-    //private Conta[] contas;
-    private final Vector<ContaAbstrata> contas;
-
-    //private int indice = 0;
-
-    public BancoVector() {
-        contas = new Vector<>();
+    public BancoIndependente(IRepositorioConta contas) {
+        this.contas = contas;
     }
+
+    public double saldoTotal() {
+        ContaAbstrata[] listadeContas = contas.listar();
+        double soma = 0;
+        for (ContaAbstrata conta : listadeContas){
+            soma += conta.getSaldo();
+        }
+        return soma;
+    }
+
+    public int numeroContas() { return contas.tamanho(); }
 
     public void cadastrar(ContaAbstrata conta) {
-        contas.add(conta);
-        //contas[indice] = conta; indice ++;
+        contas.inserir(conta);
     }
 
-    private ContaAbstrata procurar(String numeroConta) {
-        int i = 0;
-        boolean achou = false;
-
-        while ((!achou) && (i < contas.size())) {
-            String numeroContaAchada = contas.get(i).getNumero();
-            if (numeroContaAchada.equals(numeroConta)) {
-                achou = true;
-            }
-            else {
-                i ++;
-            }
-        }
-
-        if (achou){
-            return contas.get(i);
-        }
-        else { return null; }
+    public ContaAbstrata procurar(String numero) {
+        return contas.procurar(numero);
     }
 
     public void debitar(String numero, double valor) {
@@ -88,6 +79,5 @@ public class BancoVector {
     	else {
     		System.out.println("Conta não é conta especial.");
     	}
-    	
     }
 }

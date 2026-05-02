@@ -1,12 +1,12 @@
 package banksys;
 
-import banksys.br.ufc.dc.tp1.banco.Banco;
-import banksys.br.ufc.dc.tp1.banco.BancoVector;
-
+import banksys.br.ufc.dc.tp1.banco.BancoIndependente;
 import banksys.br.ufc.dc.tp1.conta.Conta;
 import banksys.br.ufc.dc.tp1.conta.ContaEspecial;
 import banksys.br.ufc.dc.tp1.conta.ContaPoupanca;
 import banksys.br.ufc.dc.tp1.conta.ContaImposto;
+import banksys.br.ufc.dc.tp1.repositorio.RepositorioContaArray;
+import banksys.br.ufc.dc.tp1.repositorio.RepositorioContaVector;
 
 public class Main {
 
@@ -15,7 +15,7 @@ public class Main {
         Conta d = new Conta("11111");
         
 
-        Banco banco_a = new Banco(); 
+        BancoIndependente banco_a = new BancoIndependente(new RepositorioContaArray());
         
         banco_a.cadastrar(c);
         banco_a.cadastrar(d);
@@ -33,7 +33,7 @@ public class Main {
         
         
         // teste de juros e bonus
-        BancoVector bancoB = new BancoVector();
+        BancoIndependente bancoB = new BancoIndependente(new RepositorioContaVector());
         ContaPoupanca contaPoupanca = new ContaPoupanca("12");
         ContaEspecial contaEspecial = new ContaEspecial("21");
         
